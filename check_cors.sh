@@ -1,4 +1,5 @@
 #!/bin/bash
+# Script to check CORS headers on an endpoint
 
 echo "Testing CORS on $1"
 
@@ -11,7 +12,7 @@ echo "$output" | grep "< Access-Control-Allow-Origin" -q
 ret=$?
 
 if [ $ret -ne 0 ]; then 
-    echo " -> Allow Origin failed"; else echo " -> Allow Origin passed"; 
+    echo " -> Allow Origin failed"; else echo " -> Allow Origin Test passed"; 
 fi
 
 echo "$output" | grep "< Access-Control-Allow-Methods: POST, GET, PUT, DELETE, HEAD, OPTIONS" -q
@@ -19,7 +20,7 @@ echo "$output" | grep "< Access-Control-Allow-Methods: POST, GET, PUT, DELETE, H
 ret=$?
 
 if [ $ret -ne 0 ]; then 
-    echo " -> Allow Methods failed"; else echo " -> Allow Methods passed"; 
+    echo " -> Allow Methods failed"; else echo " -> Allow Methods Test passed"; 
 fi
 
 echo "$output" | grep "< Access-Control-Allow-Headers: Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Cookie" -q
@@ -27,6 +28,6 @@ echo "$output" | grep "< Access-Control-Allow-Headers: Origin, Accept, X-Request
 ret=$?
 
 if [ $ret -ne 0 ]; 
-    then echo "Allow Headers failed"; else echo " -> Allow Headers passed"; 
+    then echo "Allow Headers failed"; else echo " -> Allow Headers Test passed"; 
 fi
 
