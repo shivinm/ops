@@ -1,0 +1,29 @@
+Helpful unix commands
+
+1. Search a string on every file matching the find
+
+$ find . -name "filename.pdf" | while read line; do echo $line; strings $line | grep -si search_string; done
+
+2. sar commands
+https://www.thegeekstuff.com/2011/03/sar-examples/
+https://docs.oracle.com/cd/E19455-01/805-7229/6j6q8svhc/index.html
+
+$ sar -q (CPU load)
+$ sar -u (All CPU usage)
+$ sar -r (Memory usage)
+$ sar -n (Network stats)
+$ sar -d (Device I/O)
+$ sar -b (Overall system I/O)
+$ sar -W (Paging)
+$ sar -f /var/log/sysstat/sa03 (with sar log)
+
+3. Passwordless ssh setup
+Add public key on my computer to the authorized keys file on the remote server
+Location of public key  
+$ ~/.ssh/id_rsa.pub
+
+=> Location of auth keys file on server
+$ ~/.ssh/authorized_keys
+
+3. Check CPU cores
+$ lscpu | grep -E '^Thread|^Core|^Socket|^CPU\('
