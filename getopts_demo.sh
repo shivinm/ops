@@ -54,7 +54,7 @@ if [ "$TASK_X" != "" ] && [ "$TASK_Y" != "" ]; then
 fi
 
 
-if [[ "$TASK_X" == "TRUE" ]]; then
+if [ "$TASK_X" == "TRUE" ]; then
     echo "Performing Task X"
 else
     echo "Performing Task Y with param "$TASK_Y_PARAM
