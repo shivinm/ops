@@ -25,5 +25,8 @@ $ ~/.ssh/id_rsa.pub
 => Location of auth keys file on server
 $ ~/.ssh/authorized_keys
 
-3. Check CPU cores
+4. Check CPU cores
 $ lscpu | grep -E '^Thread|^Core|^Socket|^CPU\('
+
+5. Top 10 processes taking most of memory
+ps aux --sort=-%mem | head -n 10
