@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script to demonstrate getopts utility
-# Does Task X or Task Y with a param
+# Does Task X or Task Y with a parameter (P1 or P2 or P3)
 
 Help()
 {
