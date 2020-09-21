@@ -18,11 +18,12 @@ $ sar -W (Paging)
 $ sar -f /var/log/sysstat/sa03 (with sar log)
 
 3. Passwordless ssh setup
-Add public key on my computer to the authorized keys file on the remote server
-Location of public key  
+Add public key on client to the authorized keys file on the remote server
+
+Location of public key on client
 $ ~/.ssh/id_rsa.pub
 
-=> Location of auth keys file on server
+Location of auth keys file on server
 $ ~/.ssh/authorized_keys
 
 4. Check CPU cores
