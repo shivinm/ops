@@ -1,0 +1,128 @@
+# Builds an API (.war) for TEST/STAGING/PROD and deploys on the target environment running on Glassfish/Payara
+image: maven:3.6-jdk-8
+
+pipelines:
+  branches:
+    test:
+      - step:
+          name: Creating a build
+          caches:
+            - maven
+          script:
+            - mvn clean package -P TEST
+          artifacts:
+            - target/*.war
+      - step:
+          name: Deploying on Test
+          deployment: test
+          script:
+            - export BUILD_FILE_NAME=$(basename target/*.war)
+            - export API_MODULE_NAME="${BUILD_FILE_NAME%.*}"
+            - export DATE=$(date +'%Y%m%d')
+
+            - echo "Creating build directory on environment ..."
+            - pipe: "atlassian/ssh-run:0.2.5"
+              variables:
+                SSH_USER: $EC2_USER
+                SERVER: $API_TEST
+                COMMAND: mkdir -p $DEPLOYMENT_DIR/${DATE}
+                SSH_KEY: $MY_SSH_KEY
+
+            - echo "Copying build to environment ..."
+            - pipe: "atlassian/scp-deploy:0.3.12"
+              variables:
+                USER: $EC2_USER
+                SERVER: $API_TEST
+                REMOTE_PATH: $DEPLOYMENT_DIR/${DATE}
+                LOCAL_PATH: 'target/*.war'
+
+            - echo "Deploying build on environment ..."
+            - pipe: "atlassian/ssh-run:0.2.5"
+              variables:
+                SSH_USER: $EC2_USER
+                SERVER: $API_TEST
+                COMMAND: sudo /opt/payara/current/bin/asadmin --user admin --passwordfile <path> redeploy --force=true --name=$API_MODULE_NAME --properties keepSessions=true $DEPLOYMENT_DIR/${DATE}/$BUILD_FILE_NAME
+                SSH_KEY: $MY_SSH_KEY
+
+    staging:
+      - step:
+          name: Creating a build
+          caches:
+            - maven
+          script:
+            - mvn clean package -P STAGING
+          artifacts:
+            - target/*.war
+      - step:
+          name: Deploying on Staging
+          deployment: staging
+          script:
+            - export BUILD_FILE_NAME=$(basename target/*.war)
+            - export API_MODULE_NAME="${BUILD_FILE_NAME%.*}"
+            - export DATE=$(date +'%Y%m%d')
+
+            - echo "Creating build directory on environment ..."
+            - pipe: "atlassian/ssh-run:0.2.5"
+              variables:
+                SSH_USER: $EC2_USER
+                SERVER: $API_STAGING
+                COMMAND: mkdir -p $DEPLOYMENT_DIR/${DATE}
+                SSH_KEY: $MY_SSH_KEY
+
+            - echo "Copying build to environment ..."
+            - pipe: "atlassian/scp-deploy:0.3.12"
+              variables:
+                USER: $EC2_USER
+                SERVER: $API_STAGING
+                REMOTE_PATH: $DEPLOYMENT_DIR/${DATE}
+                LOCAL_PATH: 'target/*.war'
+
+            - echo "Deploying build on environment ..."
+            - pipe: "atlassian/ssh-run:0.2.5"
+              variables:
+                SSH_USER: $EC2_USER
+                SERVER: $API_STAGING
+                COMMAND: sudo /opt/payara/current/bin/asadmin --user admin --passwordfile <path> redeploy --force=true --name=$API_MODULE_NAME --properties keepSessions=true $DEPLOYMENT_DIR/${DATE}/$BUILD_FILE_NAME
+                SSH_KEY: $MY_SSH_KEY
+
+    production:
+      - step:
+          name: Creating a build
+          caches:
+            - maven
+          script:
+            - mvn clean package -P PROD
+          artifacts:
+            - target/*.war
+      - step:
+          name: Deploying on Production
+          deployment: production
+          script:
+            - export BUILD_FILE_NAME=$(basename target/*.war)
+            - export API_MODULE_NAME="${BUILD_FILE_NAME%.*}"
+            - export DATE=$(date +'%Y%m%d')
+
+            - echo "Creating build directory on environment ..."
+            - pipe: "atlassian/ssh-run:0.2.5"
+              variables:
+                SSH_USER: $EC2_USER
+                SERVER: $API_PRODUCTION
+                COMMAND: mkdir -p $DEPLOYMENT_DIR/${DATE}
+                SSH_KEY: $MY_SSH_KEY
+
+            - echo "Copying build to environment ..."
+            - pipe: "atlassian/scp-deploy:0.3.12"
+              variables:
+                USER: $EC2_USER
+                SERVER: $API_PRODUCTION
+                REMOTE_PATH: $DEPLOYMENT_DIR/${DATE}
+                LOCAL_PATH: 'target/*.war'
+
+            - echo "Deploying build on environment ..."
+            - pipe: "atlassian/ssh-run:0.2.5"
+              variables:
+                SSH_USER: $EC2_USER
+                SERVER: $API_PRODUCTION
+                COMMAND: sudo /opt/payara/current/bin/asadmin --user admin --passwordfile <path> redeploy --force=true --name=$API_MODULE_NAME --properties keepSessions=true $DEPLOYMENT_DIR/${DATE}/$BUILD_FILE_NAME
+                SSH_KEY: $MY_SSH_KEY
+
