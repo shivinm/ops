@@ -1,0 +1,12 @@
+# Assumes passwordless setup has been setup between local and ec2-user@api.foo.com
+---
+- hosts: api.foo.com
+  gather_facts: false
+  vars:
+    remote_user: ec2-user
+  tasks:
+    - name: list files
+      command:  ls /tmp
+      register: out
+
+    - debug: var=out.stdout_lines
