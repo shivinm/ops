@@ -1,4 +1,4 @@
-# Builds an API (.war) for TEST/STAGING/PROD and deploys on the target environment running on Glassfish/Payara
+# Builds an API (.war) for TEST/STAGING/PROD and deploys on the target environment
 image: maven:3.6-jdk-8
 
 pipelines:
