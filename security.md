@@ -34,13 +34,13 @@ openssl rsa -check -in key.pem -noout
 ### Java Keystore
 
 ##### Change Certificate Private Key password 
-The cerficate's private key must match the keystore password for the ceritficate to work
+The certificate's private key password must match the keystore password for the certificate to work
 
 ```
 $ keytool -keypasswd  -alias <certificate-alias> -keystore keystore.jks
-Enter keystore password:                                                    // Enter Java Keystore password
-Enter key password for <certficate-alias>                                   // Enter password provided by the certificate issuer
-New key password for <certficate-alias> :                                   // This password should match the Java Keystore password
+Enter keystore password:                                              // Enter Java Keystore password
+Enter key password for <certficate-alias>                             // Enter password provided by the certificate issuer
+New key password for <certficate-alias> :                             // This password should match the Java Keystore password
 Re-enter new key password for <certficate-alias> :
 ```
 
