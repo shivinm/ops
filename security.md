@@ -1,3 +1,10 @@
+### PFX 
+
+##### Print details in PFX crtificate  
+```
+openssl pkcs12 -info -in drexmet.com.pfx
+```
+
 ##### Export a PFX into PEM and Private Key
 ```
 openssl pkcs12 -in filename.pfx -out cert_and_key.pem -nodes
