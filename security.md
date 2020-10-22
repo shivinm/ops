@@ -30,3 +30,17 @@ openssl x509 -in cert.pem -text -noout
 openssl rsa -in key.pem -text -noout
 openssl rsa -check -in key.pem -noout
 ```
+
+### Java Keystore
+
+##### Change Certificate Private Key password 
+The cerficate's private key must match the keystore password for the ceritficate to work
+
+```
+$ keytool -keypasswd  -alias <certficate-alias> -keystore keystore.jks
+Enter keystore password:
+Enter key password for <certficate-alias> 
+New key password for <certficate-alias> :
+Re-enter new key password for <certficate-alias> :
+```
+
