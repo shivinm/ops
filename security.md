@@ -33,6 +33,12 @@ openssl rsa -check -in key.pem -noout
 
 ### Java Keystore
 
+##### Import PFX to a temp keystore and then into Java Keystore
+```
+keytool -v -importkeystore -srckeystore <.pfx file> -srcstoretype PKCS12 -destkeystore tempkeystore -deststoretype JKS
+keytool -importkeystore -srckeystore tempkeystore -destkeystore keystore.jks
+```
+
 ##### Change Certificate Private Key password 
 The certificate's private key password must match the keystore password for the certificate to work
 
@@ -44,7 +50,23 @@ New key password for <certficate-alias> :                             // This pa
 Re-enter new key password for <certficate-alias> :
 ```
 
-### Certificate checks
+##### Change certificate alias
+```
+keytool -changealias -alias <alias> -destalias <new_alias> -keystore keystore.jks
+```
+
+##### Export a Keystore certificate to PEM file 
+This step is usally done to add intermediate/root certificates to pem to create a bundle of end-uder/intermediate/root cert (bundle.pem)
+```
+keytool -exportcert -rfc -file servercert.pem -keystore keystore.jks -alias domain1_certificate
+```
+
+##### Import a PEM file into Keystore 
+```
+keytool -importcert -keystore keystore.jks -alias domain1_certificate -file bundle.pem
+```
+
+### Certificate Queries
 - Show server/end-user certificate
 ```
 openssl s_client -connect api.xyz.com:443
