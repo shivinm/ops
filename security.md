@@ -37,10 +37,10 @@ openssl rsa -check -in key.pem -noout
 The cerficate's private key must match the keystore password for the ceritficate to work
 
 ```
-$ keytool -keypasswd  -alias <certficate-alias> -keystore keystore.jks
-Enter keystore password:
-Enter key password for <certficate-alias> 
-New key password for <certficate-alias> :
+$ keytool -keypasswd  -alias <certificate-alias> -keystore keystore.jks
+Enter keystore password:                                                    // Enter Java Keystore password
+Enter key password for <certficate-alias>                                   // Enter password provided by the certificate issuer
+New key password for <certficate-alias> :                                   // This password should match the Java Keystore password
 Re-enter new key password for <certficate-alias> :
 ```
 
