@@ -44,3 +44,28 @@ New key password for <certficate-alias> :                             // This pa
 Re-enter new key password for <certficate-alias> :
 ```
 
+### Certificate checks
+- Show server/end-user certificate
+```
+openssl s_client -connect api.xyz.com:443
+```
+
+- List all ccertificates (server / intermediate / root) 
+```
+openssl s_client -showcerts -connect  api.xyz.com:443
+```
+
+- Show certificate expiration date
+```
+echo | openssl s_client -connect api.xyz.com:443 2>/dev/null | openssl x509 -noout -dates
+```
+
+- Show SNI certificate 
+```
+openssl s_client -connect  api.xyz.com:443 -servername <abc.domain.com>
+```
+
+- Show SNI certificate expiration date
+```
+echo | openssl s_client -servername <abc.domain.com> -connect api.xyz.com:443 2>/dev/null | openssl x509 -noout -dates
+```
