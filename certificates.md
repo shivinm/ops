@@ -58,14 +58,19 @@ keytool -changealias -alias <alias> -destalias <new_alias> -keystore keystore.jk
 ```
 
 ##### Export a Keystore certificate to PEM file 
-This step is usally done to add intermediate/root certificates to pem to create a bundle of end-uder/intermediate/root cert (bundle.pem)
+This step is usally done to add intermediate/root certificates to pem to create a chain of end-user -> intermediate -> root cert  
 ```
 keytool -exportcert -rfc -file servercert.pem -keystore keystore.jks -alias domain1_certificate
 ```
 
-##### Import a PEM file into Keystore 
+##### Import a PEM file into Keystore
 ```
 keytool -importcert -keystore keystore.jks -alias domain1_certificate -file bundle.pem
+```
+
+##### Delete a certificate from Keystore
+```
+keytool -delete -alias <alias> -keystore keystore.jks
 ```
 
 ### Certificate Queries
