@@ -1,4 +1,4 @@
-### Helpful unix commands
+### Useful Unix commands
 
 ##### 1. Search a string on every file matching the find
 
