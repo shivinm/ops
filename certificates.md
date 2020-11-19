@@ -35,6 +35,11 @@ openssl rsa -check -in key.pem -noout
 
 ### Java Keystore
 
+##### List certificates
+```
+keytool -list -v -keystore keystore.jks
+```
+
 ##### Import PFX to a temp keystore and then into Java Keystore
 ```
 keytool -v -importkeystore -srckeystore <.pfx file> -srcstoretype PKCS12 -destkeystore tempkeystore -deststoretype JKS
