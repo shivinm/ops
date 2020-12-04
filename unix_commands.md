@@ -52,3 +52,8 @@ $ tshark tcp port 80  -o "ssl.keylog_file: sslkeys.txt" -Y ssl -T fields -e fram
 ```
 $ du -cksh *
 ```
+
+##### 8. Split file by number of lines
+``` 
+$ split -l 10 file.txt file.txt.
+```
