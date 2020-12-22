@@ -103,3 +103,7 @@ openssl s_client -connect  api.xyz.com:443 -servername <abc.domain.com>
 ```
 echo | openssl s_client -servername <abc.domain.com> -connect api.xyz.com:443 2>/dev/null | openssl x509 -noout -dates
 ```
+
+### Helpful links
+
+- https://security.stackexchange.com/a/29428
